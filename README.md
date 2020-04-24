@@ -1,4 +1,5 @@
 # Buildbot Matrix Plugin
+[![PyPI version](https://badge.fury.io/py/buildbot-matrix.svg)](https://badge.fury.io/py/buildbot-matrix)
 
 This Plugin for buildbot adds a reporter which sends notifications to a specified matrix room.
 
