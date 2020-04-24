@@ -37,7 +37,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
             warningAsSuccess=False,
             **kwargs
             ):
-        access_token = yield self.renderSecrets(access_token)
+        self.access_token = yield self.renderSecrets(access_token)
         yield http.HttpStatusPushBase.reconfigService(self, **kwargs)
 
         self.context = context or Interpolate('buildbot/%(prop:buildername)s')
