@@ -94,14 +94,14 @@ class MatrixStatusPush(http.HttpStatusPushBase):
 
         payload = {'msgtype': 'm.text'}
         payload['format'] = 'org.matrix.custom.html'
-        payload['body'] = '{context}: {state} on {name}/{repo} More Info: {url}'.format(
+        payload['body'] = '{context}: {state} on {repo} by {name} More Info: {url}'.format(
             context=context,
             state=state,
             url=target_url,
             name=project_owner,
             repo=repo_name
         )
-        payload['formatted_body'] = '[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {name}/{repo}/{sha}<br></blockquote>'.format(
+        payload['formatted_body'] = '[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {repo}/{sha} by {name}<br></blockquote>'.format(
             context=context,
             state=state,
             url=target_url,
