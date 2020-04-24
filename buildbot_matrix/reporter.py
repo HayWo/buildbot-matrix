@@ -44,7 +44,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
         self.context_pr = context_pr or Interpolate('buildbot/pull_request/%(prop:buildername)s')
         self.startDescription = startDescription or 'Build started.'
         self.endDescription = endDescription or 'Build done.'
-        
+
         self.verbose = verbose
         self.warningAsSuccess = warningAsSuccess
         self.project_ids = {}
@@ -72,7 +72,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
             context=None
             ):
 
-        payload = {'content':{'msgtype':'m.notice','format':'org.matrix.custom.html'}}
+        payload = {"content":{"msgtype":"m.notice","format":"org.matrix.custom.html"}}
 
         if description is None:
             description = "No Description"
@@ -94,9 +94,9 @@ class MatrixStatusPush(http.HttpStatusPushBase):
         else:
             color = '#bcbcb5'
 
-        payload['content']['body'] = '{context}: {state} on {name}/{repo} More Info: {url}'.format(context=context, state=state, url=target_url, name=project_owner, repo=repo_name)
+        payload['content']['body'] = "{context}: {state} on {name}/{repo} More Info: {url}".format(context=context, state=state, url=target_url, name=project_owner, repo=repo_name)
 
-        payload['content']['formatted_body'] = '[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {name}/{repo}/{sha}<br></blockquote>'.format(context=context, state=state,url=target_url, color=color, description=description, name=project_owner, repo=repo_name, sha=sha)
+        payload['content']['formatted_body'] = "[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {name}/{repo}/{sha}<br></blockquote>".format(context=context, state=state,url=target_url, color=color, description=description, name=project_owner, repo=repo_name, sha=sha)
 
         return self._http.post(
                 '/_matrix/client/ro/rooms/{room}/send/m.room.message?access_token={token}'.format(
