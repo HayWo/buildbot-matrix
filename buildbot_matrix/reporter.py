@@ -173,5 +173,5 @@ class MatrixStatusPush(http.HttpStatusPushBase):
                     log.msg('Code: {code} - Could not send Notification: {message}'.format(code=result.code, message=message))
                 elif self.verbose:
                     log.msg('Notification send to {room}'.format(room=self.room_id))
-            except Exeption as e:
+            except Exception as e:
                 log.err(e, 'Failed to send notification to {room}'.format(room=room_id))
