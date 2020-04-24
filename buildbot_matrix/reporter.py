@@ -119,7 +119,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
                     WARNINGS: 'success' if self.warningAsSuccess else 'warning',
                     FAILURE: 'failure',
                     SKIPPED: 'success',
-                    EXEPTION: 'error',
+                    EXCEPTION: 'error',
                     RETRY: 'pending',
                     CANCELLED: 'error'
                 }.get(build['results'], 'failure')
