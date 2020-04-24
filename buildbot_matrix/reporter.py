@@ -77,7 +77,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
         if description is None:
             description = "No Description"
         if target_url is None:
-            target_url = ""
+            target_url = " "
         if context is None:
             context = "No Context"
 
