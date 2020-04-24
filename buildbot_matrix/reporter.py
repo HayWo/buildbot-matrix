@@ -72,8 +72,6 @@ class MatrixStatusPush(http.HttpStatusPushBase):
             context=None
             ):
 
-        payload = {"content":{"msgtype":"m.notice","format":"org.matrix.custom.html"}}
-
         if description is None:
             description = "No Description"
         if target_url is None:
@@ -94,14 +92,28 @@ class MatrixStatusPush(http.HttpStatusPushBase):
         else:
             color = '#bcbcb5'
 
-#        payload['content']['body'] = "{context}: {state} on {name}/{repo} More Info: {url}".format(context=context, state=state, url=target_url, name=project_owner, repo=repo_name)
-
-#        payload['content']['formatted_body'] = "[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {name}/{repo}/{sha}<br></blockquote>".format(context=context, state=state,url=target_url, color=color, description=description, name=project_owner, repo=repo_name, sha=sha)
-
-        payload = {"content":{"msgtype":"m.notice","format":"org.matrix.custom.html","body":"{context}: {state} on {name}/{repo} More Info: {url}".format(context=context, state=state, url=target_url, name=project_owner, repo=repo_name), "formatted_body":"[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {name}/{repo}/{sha}<br></blockquote>".format(context=context, state=state,url=target_url, color=color, description=description, name=project_owner, repo=repo_name, sha=sha)}}
+        payload = {'msgtype': 'm.notice'}
+        payload['format'] = 'org.matrix.custom.html'
+        payload['body'] = '{context}: {state} on {name}/{repo} More Info: {url}'.format(
+            context=context,
+            state=state,
+            url=target_url,
+            name=project_owner,
+            repo=repo_name
+        )
+        payload['formatted_body'] = '[<a href=\"{url}\">{context}</a>] {state}<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>{description}<br>Running on {name}/{repo}/{sha}<br></blockquote>'.format(
+            context=context,
+            state=state,
+            url=target_url,
+            color=color,
+            description=description,
+            name=project_owner,
+            repo=repo_name,
+            sha=sha
+        )
 
         return self._http.post(
-                '/_matrix/client/ro/rooms/{room}/send/m.room.message?access_token={token}'.format(
+                '/_matrix/client/r0/rooms/{room}/send/m.room.message?access_token={token}'.format(
                     room=self.room_id,
                     token=self.access_token
                 ),
