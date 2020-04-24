@@ -2,6 +2,8 @@
 
 This Plugin for buildbot adds a reporter which sends notifications to a specified matrix room.
 
+Inspired by [buildbot-gitea](https://github.com/lab132/buildbot-gitea) by lab132.
+
 # Installation
 ```
 pip install buildbot_matrix
@@ -25,7 +27,7 @@ This installs itself into buildbot, no extra imports required.
 c['services'] = [
 	reporters.MatrixStatusPush(
 		'https://homeserver.example.com',
-		'ROOM_ID',
+		'ROOM_ID:example.com',
 		'BOT_ACCESS_TOKEN',
 		verbose=True
 	)
@@ -34,7 +36,7 @@ c['services'] = [
 
 * Change the URL of the homeserver to the homeserver you want to use.
 * Replace `BOT_ACCESS_TOKEN` with the acces token of the matrix user, this can be a buildbot secret.
-* Replace `ROOM_ID` with the id of the matrix room the bot should send the notifications to.
+* Replace `ROOM_ID` with the id of the matrix room the bot should send the notifications to. Replace the `!` at the beginning with `%21`. 
 
 # Personalizing
 
