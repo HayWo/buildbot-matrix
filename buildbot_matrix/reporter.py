@@ -96,7 +96,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
 
         payload['content']['body'] = '{context}: {state} on {name}/{repo} More Info: {url}'.format(context=context, state=state, url=target_url, name=project_owner, repo=repo_name)
 
-        payload['content']['formatted_body'] = ('[<a href=\"{url}\">{context}</a>] {State}'
+        payload['content']['formatted_body'] = ('[<a href=\"{url}\">{context}</a>] {state}'
                 '<blockquote data-mx-border-color=\"{color}\"><h4>{context}: {state}</h4>'
                 '{description}<br>Running on {name}/{repo}/{sha}<br>'
                 '</blockquote>'.format(context=context, state=state,url=target_url, color=color, description=description, name=project_owner, repo=repo_name, sha=sha))
