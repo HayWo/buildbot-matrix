@@ -92,7 +92,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
         else:
             color = '#bcbcb5'
 
-        payload = {'msgtype': 'm.notice'}
+        payload = {'msgtype': 'm.text'}
         payload['format'] = 'org.matrix.custom.html'
         payload['body'] = '{context}: {state} on {name}/{repo} More Info: {url}'.format(
             context=context,
