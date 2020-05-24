@@ -35,6 +35,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
             context_pr=None,
             verbose=False,
             warningAsSuccess=False,
+            onlyEndState=False,
             **kwargs
             ):
         self.access_token = yield self.renderSecrets(access_token)
@@ -47,6 +48,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
 
         self.verbose = verbose
         self.warningAsSuccess = warningAsSuccess
+        self.onlyEndState = onlyEndState
         self.project_ids = {}
 
         if homeserverURL.endswith('/'):
@@ -111,7 +113,6 @@ class MatrixStatusPush(http.HttpStatusPushBase):
             repo=repo_name,
             sha=sha
         )
-
         return self._http.post(
                 '/_matrix/client/r0/rooms/{room}/send/m.room.message?access_token={token}'.format(
                     room=self.room_id,
@@ -169,20 +170,24 @@ class MatrixStatusPush(http.HttpStatusPushBase):
 
             try:
                 target_url = build['url']
-                result = yield self.createStatus(
-                        project_owner=repository_owner,
-                        repo_name=repository_name,
-                        sha=sha,
-                        state=state,
-                        target_url=target_url,
-                        context=context,
-                        description=description
-                    )
-                if result.code not in (200, 201, 204):
-                    message = yield result.json()
-                    message = message.get('message', 'unspecified error')
-                    log.msg('Code: {code} - Could not send Notification: {message}'.format(code=result.code, message=message))
-                elif self.verbose:
-                    log.msg('Notification send to {room}'.format(room=self.room_id))
+                if (state === 'pending') && (self.onlyEndState):
+                    log.msg('Pending message not set to matrix, as configured')
+                    return
+                else:
+                    result = yield self.createStatus(
+                            project_owner=repository_owner,
+                            repo_name=repository_name,
+                            sha=sha,
+                            state=state,
+                            target_url=target_url,
+                            context=context,
+                            description=description
+                        )
+                    if result.code not in (200, 201, 204):
+                        message = yield result.json()
+                        message = message.get('message', 'unspecified error')
+                        log.msg('Code: {code} - Could not send Notification: {message}'.format(code=result.code, message=message))
+                    elif self.verbose:
+                        log.msg('Notification send to {room}'.format(room=self.room_id))
             except Exception as e:
                 log.err(e, 'Failed to send notification to {room}'.format(room=self.room_id))
