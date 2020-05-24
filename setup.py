@@ -5,7 +5,7 @@ from setuptools import setup
 with open("README.md", "r") as rm:
     long_description = rm.read()
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 setup(name='buildbot-matrix',
         version=VERSION,
