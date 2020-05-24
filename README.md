@@ -7,7 +7,7 @@ Inspired by [buildbot-gitea](https://github.com/lab132/buildbot-gitea) by lab132
 
 # Installation
 ```
-pip install buildbot_matrix
+pip install buildbot-matrix
 ```
 
 This installs itself into buildbot, no extra imports required.
