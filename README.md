@@ -50,3 +50,4 @@ You can modify the notifications by changing the following parameters:
 | `context` | Identifier to give messages a context | `Interpolate('buildbot/%(prop:buildername)s')` |
 | `context_pr` | Identifier to give messages a context, used on pull requests | `Interpolate('buildbot/pull_request/%(prop:buildername)s')` |
 | `warningAsSuccess` | Treat warnings as build success | `False` |
+| `onlyEndState` | Only send a message if a build has ended | `False` |
