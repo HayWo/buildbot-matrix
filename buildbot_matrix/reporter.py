@@ -168,12 +168,12 @@ class MatrixStatusPush(http.HttpStatusPushBase):
                 else:
                     repository_owner = None
 
-            try:
-                target_url = build['url']
-                if (state == 'pending') and (self.onlyEndState):
-                    log.msg('Pending message not set to matrix, as configured')
-                    return
-                else:
+            if (state == 'pending') and (self.onlyEndState):
+                log.msg('Pending message not set to matrix, as configured')
+                return
+            else:
+                try:
+                    target_url = build['url']
                     result = yield self.createStatus(
                             project_owner=repository_owner,
                             repo_name=repository_name,
@@ -189,5 +189,5 @@ class MatrixStatusPush(http.HttpStatusPushBase):
                         log.msg('Code: {code} - Could not send Notification: {message}'.format(code=result.code, message=message))
                     elif self.verbose:
                         log.msg('Notification send to {room}'.format(room=self.room_id))
-            except Exception as e:
-                log.err(e, 'Failed to send notification to {room}'.format(room=self.room_id))
+                except Exception as e:
+                    log.err(e, 'Failed to send notification to {room}'.format(room=self.room_id))
