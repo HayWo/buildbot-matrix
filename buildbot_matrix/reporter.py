@@ -170,7 +170,7 @@ class MatrixStatusPush(http.HttpStatusPushBase):
 
             try:
                 target_url = build['url']
-                if (state == 'pending') && (self.onlyEndState):
+                if (state == 'pending') and (self.onlyEndState):
                     log.msg('Pending message not set to matrix, as configured')
                     return
                 else:
